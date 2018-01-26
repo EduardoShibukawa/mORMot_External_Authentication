@@ -124,7 +124,6 @@ class AutheticatedHTTPClient:
         url = "/".join(
             [self.base_url,
              self.add_session_signature(method, parameters)])
-        print(url)
         return requests.get(url)
 
 
