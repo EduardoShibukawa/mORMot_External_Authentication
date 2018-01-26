@@ -1,5 +1,5 @@
 """
-Authot: Eduardo Shibukawa
+Author: Eduardo Shibukawa
 
 This module contais the authenticated client http class of a mORMot server.
     - Authentication and connection to a mormot server.
