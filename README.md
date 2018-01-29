@@ -39,7 +39,6 @@ if SESSION:
   PARAMETERS = {'Param1': '4'}
 
   REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
-
   print("Making request: {}".format(METHOD))
   pprint(REQUEST.json())
 
@@ -47,9 +46,9 @@ if SESSION:
   PARAMETERS = {}
 
   REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
-
   print("Making request: {}".format(METHOD))
   pprint(REQUEST.json())
+else print("Invalid username or Password!")
 ```
 
 ## Authors
