@@ -90,11 +90,11 @@ class AutheticatedHTTPClient:
         >> Binary Right Shift
         https://www.tutorialspoint.com/python/bitwise_operators_example.html
         """
-        url_without_sesssion_signature = "/".join([
+           url_without_sesssion_signature = "/".join([
             self.root,
-            method,
-            urllib.parse.urlencode(parameters),
+            "?".join([method, urllib.parse.urlencode(parameters)]) if parameters else method
         ])
+        print(url_without_sesssion_signature)
 
         nonce = to_hex8_str(self.session.get_tick_count() >> 8)
 
@@ -107,8 +107,7 @@ class AutheticatedHTTPClient:
 
         return "/".join([
             self.root,
-            method,
-            urllib.parse.urlencode(parameters),
+            "?".join([method, urllib.parse.urlencode(parameters)])
         ])
 
     def request(self, method, parameters):
