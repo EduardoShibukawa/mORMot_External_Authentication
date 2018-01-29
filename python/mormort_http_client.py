@@ -127,27 +127,28 @@ class AutheticatedHTTPClient:
 
 
 if __name__ == '__main__':
-    HTTP_CLIENT = AutheticatedHTTPClient('localhost', '4023', 'root_sigeps')
+                                         #host,       port,   root
+    HTTP_CLIENT = AutheticatedHTTPClient('localhost', '888', 'root')
     SESSION = HTTP_CLIENT.login(
-        'MASTER',
-        '1a595d37c270843beced4738d1066d4610edb1c5dd6caa596d7d3dcd670054fb')
+      'Admin', #User
+      '67aeea294e1cb515236fd7829c55ec820ef888e8e221814d24d83b3dc4d825dd' #Hashed Password
+    )
     if SESSION:
-        from pprint import pprint
-        print("Logged in session:")
-        pprint(SESSION.__dict__)
+      from pprint import pprint
+      print("Logged in session:")
+      pprint(SESSION.__dict__)
 
-        METHOD = 'Autenticacao'
-        PARAMETERS = {'IdEmpresa': '4'}
+      METHOD = 'ParamMethod'
+      PARAMETERS = {'Param1': '4'}
 
-        REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+      REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+      print("Making request: {}".format(METHOD))
+      pprint(REQUEST.json())
 
-        print("Making request in {}".format(METHOD))
-        pprint(REQUEST.json())
+      METHOD = 'Mehod'
+      PARAMETERS = {}
 
-        METHOD = 'GerarUsuariosVIP'
-        PARAMETERS = {}
-
-        REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
-
-        print("Making request in {}".format(METHOD))
-        pprint(REQUEST.json())
+      REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+      print("Making request: {}".format(METHOD))
+      pprint(REQUEST.json())
+    else print("Invalid username or Password!")
