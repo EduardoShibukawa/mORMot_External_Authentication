@@ -31,23 +31,23 @@ SESSION = HTTP_CLIENT.login(
   '67aeea294e1cb515236fd7829c55ec820ef888e8e221814d24d83b3dc4d825dd' #Hashed Password
 )
 if SESSION:
-  from pprint import pprint
-  print("Logged in session:")
-  pprint(SESSION.__dict__)
+    from pprint import pprint
+    print("Logged in session:")
+    pprint(SESSION.__dict__)
 
-  METHOD = 'ParamMethod'
-  PARAMETERS = {'Param1': '4'}
+    METHOD = 'ParamMethod'
+    PARAMETERS = {'Param1': '4'}
 
-  REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
-  print("Making request: {}".format(METHOD))
-  pprint(REQUEST.json())
+    REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+    print("Making request: {}".format(METHOD))
+    pprint(REQUEST.json())
 
-  METHOD = 'Mehod'
-  PARAMETERS = {}
+    METHOD = 'Mehod'
+    PARAMETERS = {}
 
-  REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
-  print("Making request: {}".format(METHOD))
-  pprint(REQUEST.json())
+    REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+    print("Making request: {}".format(METHOD))
+    pprint(REQUEST.json())
 else print("Invalid username or Password!")
 ```
 
