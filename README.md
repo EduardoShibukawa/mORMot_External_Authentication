@@ -15,14 +15,13 @@ pip install -r requirements.txt
 
 ### Example
 
-run:
+running the example:
 
 ```bash
 python mormort_http_client.py
 ```
 
-
-Code   
+example in code:
 ```python
                                      #host,       port,   root
 HTTP_CLIENT = AutheticatedHTTPClient('localhost', '888', 'root')
