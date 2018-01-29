@@ -6,12 +6,15 @@ This project contains examples demonstrating how to connect to a server mormot, 
 
 ### Prerequisites
 
-python 3.6
-requests 2.12.4
+  * python 3.6
+  * requests 2.12.4
 
 ### Installing
 
+
+```bash
 pip install -r requirements.txt
+```
 
 ### Example
 
