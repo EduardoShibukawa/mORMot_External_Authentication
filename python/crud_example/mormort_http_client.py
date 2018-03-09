@@ -94,7 +94,6 @@ class AutheticatedHTTPClient:
             self.root,
             "?".join([method, urllib.parse.urlencode(parameters)]) if parameters else method
         ])
-        print(url_without_sesssion_signature)
 
         nonce = to_hex8_str(self.session.get_tick_count() >> 8)
 
@@ -127,6 +126,55 @@ class AutheticatedHTTPClient:
         ])
         
         return requests.get(url)
+
+    def post(self, method, json_value):
+        """
+        requests function request the method with the parameteres
+
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            json_value: json value to post
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])
+        
+        return requests.post(url, data=json_value)  
+    
+    def put(self, method, json_value):
+        """
+        requests function request the method with the parameteres
+
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            json_value: json value to post
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])        
+        return requests.put(url, data=json_value)  
+
+    def delete(self, method):
+        """
+        requests function request the method with the parameteres
+
+        Args:
+            method (str): method of the URL, example: MyMethod.
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])
+        
+        return requests.delete(url)  
 
     def xget(self, data):
         url = "/".join([
