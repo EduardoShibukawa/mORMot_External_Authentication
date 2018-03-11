@@ -94,7 +94,6 @@ class AutheticatedHTTPClient:
             self.root,
             "?".join([method, urllib.parse.urlencode(parameters)]) if parameters else method
         ])
-        print(url_without_sesssion_signature)
 
         nonce = to_hex8_str(self.session.get_tick_count() >> 8)
 
@@ -128,7 +127,63 @@ class AutheticatedHTTPClient:
         
         return requests.get(url)
 
+    def post(self, method, json_value):
+        """
+        post function submits the data using POST HTTP method with the parameteres
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            json_value: json value to post, example '{id: 1}'
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])
+        
+        return requests.post(url, data=json_value)  
+    
+    def put(self, method, json_value):
+        """
+        put function submits the data using POST HTTP method with the parameteres
+
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            json_value: json value to PUT, example '{id: 1}'
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])        
+        return requests.put(url, data=json_value)  
+
+    def delete(self, method):
+        """
+        delete function submits the data using DELETE HTTP method with the parameteres
+
+        Args:
+            method (str): method of the URL, example: MyMethod.
+        Returns:
+            The post response.
+        """
+        url = "/".join([
+            self.base_url,
+            self.add_session_signature(method, {})
+        ])
+        
+        return requests.delete(url)  
+
     def xget(self, data):
+        """
+        xget function request the method using GET HTTP method with a body parameter 
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            data (str): the body data value, example 'select Dest from DestList'
+        Returns:
+            The mehod request.
+        """
         url = "/".join([
             self.base_url, 
             self.add_session_signature('', {})
@@ -136,20 +191,32 @@ class AutheticatedHTTPClient:
 
         return requests.Session().send(
             requests.Request('GET', url, data=data).prepare()
-        )                        
+        )
 
 if __name__ == '__main__':
-                                         #host,       port,   root
+                                        #host,       port,   root
     HTTP_CLIENT = AutheticatedHTTPClient('localhost', '888', 'root')
     SESSION = HTTP_CLIENT.login(
-      'Admin', #User
-      '67aeea294e1cb515236fd7829c55ec820ef888e8e221814d24d83b3dc4d825dd' #Hashed Password
+    'Admin', #User
+    '67aeea294e1cb515236fd7829c55ec820ef888e8e221814d24d83b3dc4d825dd' #Hashed Password
     )
     if SESSION:
         from pprint import pprint
         print("Logged in session:")
         pprint(SESSION.__dict__)
 
-        REQUEST = HTTP_CLIENT.xget('SELECT RowID FROM PersonInfoDest WHERE Source=:(1): LIMIT 1')
-        pprint(REQUEST.json())        
-    else: print("Invalid username or Password!")
+        METHOD = 'ParamMethod'
+        PARAMETERS = {'Param1': '4'}
+
+        REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+        print("Making request: {}".format(METHOD))
+        pprint(REQUEST.json())
+
+        METHOD = 'Mehod'
+        PARAMETERS = {}
+
+        REQUEST = HTTP_CLIENT.request(METHOD, PARAMETERS)
+        print("Making request: {}".format(METHOD))
+        pprint(REQUEST.json())
+    else:
+        print("Invalid username or Password!")

@@ -129,11 +129,10 @@ class AutheticatedHTTPClient:
 
     def post(self, method, json_value):
         """
-        requests function request the method with the parameteres
-
+        post function submits the data using POST HTTP method with the parameteres
         Args:
             method (str): method of the URL, example: MyMethod.
-            json_value: json value to post
+            json_value: json value to post, example '{id: 1}'
         Returns:
             The post response.
         """
@@ -146,11 +145,11 @@ class AutheticatedHTTPClient:
     
     def put(self, method, json_value):
         """
-        requests function request the method with the parameteres
+        put function submits the data using POST HTTP method with the parameteres
 
         Args:
             method (str): method of the URL, example: MyMethod.
-            json_value: json value to post
+            json_value: json value to PUT, example '{id: 1}'
         Returns:
             The post response.
         """
@@ -162,7 +161,7 @@ class AutheticatedHTTPClient:
 
     def delete(self, method):
         """
-        requests function request the method with the parameteres
+        delete function submits the data using DELETE HTTP method with the parameteres
 
         Args:
             method (str): method of the URL, example: MyMethod.
@@ -177,6 +176,14 @@ class AutheticatedHTTPClient:
         return requests.delete(url)  
 
     def xget(self, data):
+        """
+        xget function request the method using GET HTTP method with a body parameter 
+        Args:
+            method (str): method of the URL, example: MyMethod.
+            data (str): the body data value, example 'select Dest from DestList'
+        Returns:
+            The mehod request.
+        """
         url = "/".join([
             self.base_url, 
             self.add_session_signature('', {})
@@ -184,20 +191,4 @@ class AutheticatedHTTPClient:
 
         return requests.Session().send(
             requests.Request('GET', url, data=data).prepare()
-        )                        
-
-if __name__ == '__main__':
-                                         #host,       port,   root
-    HTTP_CLIENT = AutheticatedHTTPClient('localhost', '888', 'root')
-    SESSION = HTTP_CLIENT.login(
-      'Admin', #User
-      '67aeea294e1cb515236fd7829c55ec820ef888e8e221814d24d83b3dc4d825dd' #Hashed Password
-    )
-    if SESSION:
-        from pprint import pprint
-        print("Logged in session:")
-        pprint(SESSION.__dict__)
-
-        REQUEST = HTTP_CLIENT.xget('SELECT RowID FROM PersonInfoDest WHERE Source=:(1): LIMIT 1')
-        pprint(REQUEST.json())        
-    else: print("Invalid username or Password!")
+        )
