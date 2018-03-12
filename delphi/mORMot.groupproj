@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{456498F9-FBD0-4742-9988-1CDDBAB6441C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="prMormotServer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="prMotmotGUIClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="prMormotConsoleClient.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="prMormotServer">
+        <MSBuild Projects="prMormotServer.dproj"/>
+    </Target>
+    <Target Name="prMormotServer:Clean">
+        <MSBuild Projects="prMormotServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="prMormotServer:Make">
+        <MSBuild Projects="prMormotServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="prMotmotGUIClient">
+        <MSBuild Projects="prMotmotGUIClient.dproj"/>
+    </Target>
+    <Target Name="prMotmotGUIClient:Clean">
+        <MSBuild Projects="prMotmotGUIClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="prMotmotGUIClient:Make">
+        <MSBuild Projects="prMotmotGUIClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="prMormotConsoleClient">
+        <MSBuild Projects="prMormotConsoleClient.dproj"/>
+    </Target>
+    <Target Name="prMormotConsoleClient:Clean">
+        <MSBuild Projects="prMormotConsoleClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="prMormotConsoleClient:Make">
+        <MSBuild Projects="prMormotConsoleClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="prMormotServer;prMotmotGUIClient;prMormotConsoleClient"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="prMormotServer:Clean;prMotmotGUIClient:Clean;prMormotConsoleClient:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="prMormotServer:Make;prMotmotGUIClient:Make;prMormotConsoleClient:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
